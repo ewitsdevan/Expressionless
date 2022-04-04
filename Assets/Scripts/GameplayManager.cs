@@ -51,6 +51,7 @@ public class GameplayManager : MonoBehaviour
 
         weirdnessPanel.SetActive(false);
         conversationCanvas.SetActive(false);
+        GetComponent<AudioManager>().StopMusic();
 
         GetComponent<FadeAnimation>().FadeOut();
         StartCoroutine(BackToMenu());
@@ -63,7 +64,17 @@ public class GameplayManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(1);
         GetComponent<FadeAnimation>().TextFadeIn(isWeirdText);
 
-        yield return new WaitForSecondsRealtime(5);
+        yield return new WaitForSecondsRealtime(4);
+        GetComponent<FadeAnimation>().TextFadeOut(isWeirdText);
+
+        yield return new WaitForSecondsRealtime(2);
+        isWeirdText.text = "They don't understand.";
+        GetComponent<FadeAnimation>().TextFadeIn(isWeirdText);
+
+        yield return new WaitForSecondsRealtime(4);
+        GetComponent<FadeAnimation>().TextFadeOut(isWeirdText);
+
+        yield return new WaitForSecondsRealtime(4);
         Menu();
     }
 

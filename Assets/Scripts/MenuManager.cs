@@ -23,7 +23,7 @@ public class MenuManager : MonoBehaviour
 
     IEnumerator PlayE()
     {
-        yield return new WaitForSecondsRealtime(1);
+        yield return new WaitForSecondsRealtime(2);
         SceneManager.LoadScene(1);
     }
 

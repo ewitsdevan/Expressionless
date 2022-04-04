@@ -56,4 +56,20 @@ public class FadeAnimation : MonoBehaviour
             yield return null;
         }
     }
+
+    public void TextFadeOut(TextMeshProUGUI tmp)
+    {
+        StartCoroutine(TextFadeOutE(0f, 1.0f, tmp));
+    }
+
+    IEnumerator TextFadeOutE(float value, float time, TextMeshProUGUI uiText)
+    {
+        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / time)
+        {
+            Color panelFade = new Color(1, 1, 1, Mathf.Lerp(1, value, t));
+            uiText.color = panelFade;
+
+            yield return null;
+        }
+    }
 }
