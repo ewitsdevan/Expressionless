@@ -108,9 +108,9 @@ public class ConversationScript : MonoBehaviour
     public void WrongAnswer()
     {
         player.GetComponent<GameplayManager>().addWeirdness();
-        DisableCursor();
-        conversationCanvas.enabled = false;
-        Destroy(gameObject);
+        //DisableCursor();
+        //conversationCanvas.enabled = false;
+        //Destroy(gameObject);
     }
 
     //When player gets question right

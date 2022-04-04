@@ -13,7 +13,6 @@ public class GameplayManager : MonoBehaviour
     public Slider weirdnessSlider;
     public GameObject weirdnessPanel;
     public GameObject conversationCanvas;
-    public Image isWeirdPanel;
     public TextMeshProUGUI isWeirdText;
 
     private bool isWeird;
@@ -53,28 +52,17 @@ public class GameplayManager : MonoBehaviour
         weirdnessPanel.SetActive(false);
         conversationCanvas.SetActive(false);
 
-        StartCoroutine(FadeIn(1.0f, 1.0f));
+        GetComponent<FadeAnimation>().FadeOut();
         StartCoroutine(BackToMenu());
     }
 
-    //Menu UI fade animation
-    IEnumerator FadeIn(float value, float time)
-    {
-        for (float t = 0.0f; t < 1.0f; t += Time.deltaTime / time)
-        {
-            Color panelFade = new Color(0, 0, 0, Mathf.Lerp(0, value, t));
-            isWeirdPanel.color = panelFade;
-
-            Color textFade = new Color(1, 1, 1, Mathf.Lerp(0, value, t));
-            isWeirdText.color = textFade;
-
-            yield return null;
-        }
-    }
 
     //Goes back to menu after waiting
     IEnumerator BackToMenu()
     {
+        yield return new WaitForSecondsRealtime(1);
+        GetComponent<FadeAnimation>().TextFadeIn(isWeirdText);
+
         yield return new WaitForSecondsRealtime(5);
         Menu();
     }
