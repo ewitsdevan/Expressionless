@@ -12,6 +12,7 @@ public class ConversationScript : MonoBehaviour
     public string option1;
     public string option2;
     public int correctAnswer;
+    public bool randomiseCorrectAnswer;
 
     public Canvas conversationCanvas;
     public TextMeshProUGUI dialogueText;
@@ -44,6 +45,10 @@ public class ConversationScript : MonoBehaviour
     //Sets the UI to show correct details
     public void Conversation()
     {
+        if(randomiseCorrectAnswer)
+        {
+            correctAnswer = Random.Range(1, 3);
+        }
 
         conversationCanvas.enabled = true;
 
@@ -108,9 +113,9 @@ public class ConversationScript : MonoBehaviour
     public void WrongAnswer()
     {
         player.GetComponent<GameplayManager>().addWeirdness();
-        //DisableCursor();
-        //conversationCanvas.enabled = false;
-        //Destroy(gameObject);
+        DisableCursor();
+        conversationCanvas.enabled = false;
+        Destroy(gameObject);
     }
 
     //When player gets question right
