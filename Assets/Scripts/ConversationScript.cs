@@ -54,7 +54,7 @@ public class ConversationScript : MonoBehaviour
 
         option1Button.onClick.AddListener(Option1);
         option2Button.onClick.AddListener(Option2);
-        
+
 
         dialogueText.text = question;
         option1Button.GetComponentInChildren<TextMeshProUGUI>().text = option1;
@@ -113,16 +113,30 @@ public class ConversationScript : MonoBehaviour
     public void WrongAnswer()
     {
         player.GetComponent<GameplayManager>().addWeirdness();
+        player.GetComponent<AudioManager>().wrongTone();
+        player.GetComponent<GameplayManager>().interactionComplete();
+
         DisableCursor();
         conversationCanvas.enabled = false;
+
+        option1Button.onClick.RemoveAllListeners();
+        option2Button.onClick.RemoveAllListeners();
+
         Destroy(gameObject);
     }
 
     //When player gets question right
     public void CorrectAnswer()
     {
+        player.GetComponent<AudioManager>().correctTone();
+        player.GetComponent<GameplayManager>().interactionComplete();
+
         DisableCursor();
         conversationCanvas.enabled = false;
+
+        option1Button.onClick.RemoveAllListeners();
+        option2Button.onClick.RemoveAllListeners();
+
         Destroy(gameObject);
     }
 

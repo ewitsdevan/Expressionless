@@ -43,4 +43,18 @@ public class AudioManager : MonoBehaviour
             yield return null;
         }
     }
+
+    public void correctTone()
+    {
+        sfxSource.clip = tone;
+        sfxSource.pitch = 1f;
+        sfxSource.Play();
+    }
+
+    public void wrongTone()
+    {
+        sfxSource.clip = tone;
+        sfxSource.pitch = 0.5f;
+        sfxSource.Play();
+    }
 }
