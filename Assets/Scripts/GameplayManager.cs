@@ -15,9 +15,16 @@ public class GameplayManager : MonoBehaviour
     public Slider weirdnessSlider;
     public GameObject weirdnessPanel;
     public GameObject conversationCanvas;
-    public TextMeshProUGUI endText;
+    public TextMeshProUGUI fadeText;
+    public AudioSource musicSource;
 
     private bool isWeird;
+
+    void Start()
+    {
+        StartCoroutine(StartText());
+        Cursor.lockState = CursorLockMode.Locked;
+    }
 
     //Adds value to weirdness
     public void addWeirdness()
@@ -80,19 +87,19 @@ public class GameplayManager : MonoBehaviour
     //Goes back to menu after waiting
     IEnumerator IsWeirdEnd()
     {
-        endText.text = "They think you're weird.";
+        fadeText.text = "They think you're weird.";
         yield return new WaitForSecondsRealtime(1);
-        GetComponent<FadeAnimation>().TextFadeIn(endText);
+        GetComponent<FadeAnimation>().TextFadeIn(fadeText);
 
         yield return new WaitForSecondsRealtime(4);
-        GetComponent<FadeAnimation>().TextFadeOut(endText);
+        GetComponent<FadeAnimation>().TextFadeOut(fadeText);
 
         yield return new WaitForSecondsRealtime(2);
-        endText.text = "They don't understand.";
-        GetComponent<FadeAnimation>().TextFadeIn(endText);
+        fadeText.text = "They don't understand.";
+        GetComponent<FadeAnimation>().TextFadeIn(fadeText);
 
         yield return new WaitForSecondsRealtime(4);
-        GetComponent<FadeAnimation>().TextFadeOut(endText);
+        GetComponent<FadeAnimation>().TextFadeOut(fadeText);
 
         yield return new WaitForSecondsRealtime(4);
         Menu();
@@ -100,22 +107,37 @@ public class GameplayManager : MonoBehaviour
 
     IEnumerator NotWeirdEnd()
     {
-        endText.text = "They didn't notice.";
+        fadeText.text = "You did it.";
         yield return new WaitForSecondsRealtime(1);
-        GetComponent<FadeAnimation>().TextFadeIn(endText);
+        GetComponent<FadeAnimation>().TextFadeIn(fadeText);
 
         yield return new WaitForSecondsRealtime(4);
-        GetComponent<FadeAnimation>().TextFadeOut(endText);
+        GetComponent<FadeAnimation>().TextFadeOut(fadeText);
 
         yield return new WaitForSecondsRealtime(2);
-        endText.text = "This time.";
-        GetComponent<FadeAnimation>().TextFadeIn(endText);
+        fadeText.text = "This time.";
+        GetComponent<FadeAnimation>().TextFadeIn(fadeText);
 
         yield return new WaitForSecondsRealtime(4);
-        GetComponent<FadeAnimation>().TextFadeOut(endText);
+        GetComponent<FadeAnimation>().TextFadeOut(fadeText);
 
         yield return new WaitForSecondsRealtime(4);
         Menu();
+    }
+
+    IEnumerator StartText()
+    {
+        fadeText.text = "Fit In.";
+        yield return new WaitForSecondsRealtime(1);
+        GetComponent<FadeAnimation>().TextFadeIn(fadeText);
+
+        yield return new WaitForSecondsRealtime(3);
+        GetComponent<FadeAnimation>().TextFadeOut(fadeText);
+
+        yield return new WaitForSecondsRealtime(1);
+        GetComponent<FadeAnimation>().StartFade();
+        GetComponent<AudioSource>().Play();
+        musicSource.Play();
     }
 
     //Menu scene loader

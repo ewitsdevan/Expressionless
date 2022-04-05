@@ -8,7 +8,7 @@ public class FadeAnimation : MonoBehaviour
 {
     public Image fadeImage;
 
-    void Start()
+    public void StartFade()
     {
         StartCoroutine(FadeInE(0f, 1.0f));
     }

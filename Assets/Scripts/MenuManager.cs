@@ -15,6 +15,12 @@ public class MenuManager : MonoBehaviour
     public TMP_Dropdown qualityDropdown;
     public TextMeshProUGUI versionText;
 
+    void Start()
+    {
+        GetComponent<FadeAnimation>().StartFade();
+        Cursor.lockState = CursorLockMode.None;
+    }
+
     public void Play()
     {
         GetComponent<FadeAnimation>().FadeOut();
@@ -40,7 +46,7 @@ public class MenuManager : MonoBehaviour
         menuPanel.SetActive(false);
 
         qualityDropdown.value = QualitySettings.GetQualityLevel();
-        versionText.text = Application.version;
+        versionText.text = "<i>" + Application.version + "</i>";
     }
 
     public void Credits()

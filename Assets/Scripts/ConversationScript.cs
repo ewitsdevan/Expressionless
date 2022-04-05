@@ -59,6 +59,8 @@ public class ConversationScript : MonoBehaviour
         dialogueText.text = question;
         option1Button.GetComponentInChildren<TextMeshProUGUI>().text = option1;
         option2Button.GetComponentInChildren<TextMeshProUGUI>().text = option2;
+
+        GetComponent<AudioSource>().Play();
     }
 
     //When button 1 is clicked
