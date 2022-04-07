@@ -11,11 +11,13 @@ public class GameplayManager : MonoBehaviour
     public float playerWeirdness;
     public float addWeirnessAmount;
     public int interactionsHad;
+    public bool trailerMode;
 
     public Slider weirdnessSlider;
     public GameObject weirdnessPanel;
     public GameObject conversationCanvas;
     public TextMeshProUGUI fadeText;
+    public TextMeshProUGUI trailerText;
     public AudioSource musicSource;
 
     private bool isWeird;
@@ -87,8 +89,8 @@ public class GameplayManager : MonoBehaviour
     //Goes back to menu after waiting
     IEnumerator IsWeirdEnd()
     {
-        fadeText.text = "They think you're weird.";
         yield return new WaitForSecondsRealtime(1);
+        fadeText.text = "They think you're weird.";
         GetComponent<FadeAnimation>().TextFadeIn(fadeText);
 
         yield return new WaitForSecondsRealtime(4);
@@ -101,14 +103,21 @@ public class GameplayManager : MonoBehaviour
         yield return new WaitForSecondsRealtime(4);
         GetComponent<FadeAnimation>().TextFadeOut(fadeText);
 
-        yield return new WaitForSecondsRealtime(4);
-        Menu();
+        if(trailerMode)
+        {
+            StartCoroutine(TrailerMode());
+        }
+        else
+        {
+            yield return new WaitForSecondsRealtime(4);
+            Menu();
+        }
     }
 
     IEnumerator NotWeirdEnd()
     {
-        fadeText.text = "You did it.";
         yield return new WaitForSecondsRealtime(1);
+        fadeText.text = "You did it.";
         GetComponent<FadeAnimation>().TextFadeIn(fadeText);
 
         yield return new WaitForSecondsRealtime(4);
@@ -144,5 +153,22 @@ public class GameplayManager : MonoBehaviour
     void Menu()
     {
         SceneManager.LoadScene(0);
+    }
+
+    IEnumerator TrailerMode()
+    {
+        yield return new WaitForSecondsRealtime(4);
+        fadeText.text = "Expressionless";
+        GetComponent<FadeAnimation>().TextFadeIn(fadeText);
+
+        yield return new WaitForSecondsRealtime(4);
+        GetComponent<FadeAnimation>().TextFadeIn(trailerText);
+
+        yield return new WaitForSecondsRealtime(4);
+        GetComponent<FadeAnimation>().TextFadeOut(fadeText);
+        GetComponent<FadeAnimation>().TextFadeOut(trailerText);
+
+        yield return new WaitForSecondsRealtime(5);
+        Menu();
     }
 }
